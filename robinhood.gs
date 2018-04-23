@@ -308,12 +308,13 @@ function refreshLastUpdate_() {
  * =ROBINHOOD_GET_POSITIONS(Refresh!$A$1)
  */
 function onOpen() {
+  var cache = CacheService.getScriptCache();
+  cache.remove('accessToken');
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   var refreshSheet = spreadsheet.getSheetByName('Refresh');
   if (refreshSheet === null) {
    refreshSheet = spreadsheet.insertSheet('Refresh');
   }
-  spreadsheet.moveActiveSheet(1);
   var entries = [{ name: 'Refresh Data', functionName: 'refreshLastUpdate_' }];
   spreadsheet.addMenu('Refresh Data', entries);
 }
