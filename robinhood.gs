@@ -26,9 +26,12 @@ var robinhoodApiUriMap = {
 /**
  * Get a "classic" Robinhood auth token using your username and password.
  */
-function getClassicToken_() {
-  var url = robinhoodApiBaseUrl + '/api-token-auth/';
+function getAccessToken_() {
+  var url = robinhoodApiBaseUrl + '/oauth2/token/';
   var payload = {
+    'grant_type': "password",
+    'scope': "internal",
+    'client_id': "c82SH0WZOsabOXGP2sxqcj34FxkvfnWRZBKlBjFS",
     'username': robinhoodUsername,
     'password': robinhoodPassword
   };
@@ -39,26 +42,8 @@ function getClassicToken_() {
   };
   var response = UrlFetchApp.fetch(url, options);
   var responseJson = JSON.parse(response.getContentText());
-  var classicToken = responseJson.token;
-  return classicToken;
-}
-
-/**
- * While authenticated with a "classic" token, POST to Robinhood's "migrate_token"
- * endpoint to get a short-lived OAuth2 access token and expires_in value.
- */
-function getOAuthMigrateTokenResponse_(classicToken) {
-  var url = robinhoodApiBaseUrl + '/oauth2/migrate_token/';
-  var options = {
-    'method': 'post',
-    'muteHttpExceptions': true,
-    'headers': {
-      'Authorization': 'Token ' + classicToken
-    }
-  };
-  var response = UrlFetchApp.fetch(url, options);
-  var responseJson = JSON.parse(response.getContentText());
-  return responseJson;
+  var accessToken = responseJson.access_token;
+  return accessToken;
 }
 
 /**
@@ -71,11 +56,8 @@ function getOAuthToken_() {
   if (accessToken) {
     return accessToken;
   }
-  var classicToken = getClassicToken_();
-  var responseJson = getOAuthMigrateTokenResponse_(classicToken);
-  var expiresIn = responseJson.expires_in;
-  accessToken = responseJson.access_token;
-  cache.put('accessToken', accessToken, expiresIn);
+  var accessToken = getAccessToken_();
+  cache.put('accessToken', accessToken);
   return accessToken;
 }
 
