@@ -15,6 +15,7 @@ The Robinhood API is not publicly available but has been [explored extensively](
 var robinhoodUsername = 'janedoe';
 var robinhoodPassword = 'passw0rd';
 ```
+6. (As of 1/19/20) Log into Robinhood on the Web to [https://stackoverflow.com/questions/55902967/is-there-any-way-to-get-a-bearer-token-now-since-robinhood-has-changed-the-api/56841942](obtain a device_id) and add it to your payload to get past RH's Oauth flow.
 6. Select the menu item **File > Save**. Give the script project a name and click OK.
 7. Refresh the spreadsheet. You will now be able to use custom functions to retrieve your Robinhood data!
 
