@@ -19,6 +19,10 @@ var robinhoodPassword = 'passw0rd';
 6. Select the menu item **File > Save**. Give the script project a name and click OK.
 7. Refresh the spreadsheet. You will now be able to use custom functions to retrieve your Robinhood data!
 
+#Video Tutorial on API
+A helpful member of the community has created a tutorial video on how to upload the tokens if you find the instructions difficult check it out below
+https://www.youtube.com/watch?v=NKdAeMlJvco
+
 ## Custom functions
 
 #### [`ROBINHOOD_GET_ACH_TRANSFERS()`](robinhood.gs#L223)
