@@ -178,6 +178,14 @@ function getRobinhoodData_(endpoint, hyperlinkedFields) {
   var data = [];
   var url = robinhoodApiBaseUrl + robinhoodApiUriMap[endpoint];
   var results = apiClient.pagedGet(url);
+  
+  // Filter only held positions
+  if (endpoint == "positions") {
+    results = results.filter(function (row) {
+      return row['quantity'] > 0;
+    });
+  }
+  
   for (var i = 0;  i < results.length; i++) {
     var flattenedResult = {};
     var hyperlinkedFieldsCopy = hyperlinkedFields.slice();
